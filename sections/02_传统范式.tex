@@ -1,0 +1,90 @@
+\section{控制变量的理论基础：传统范式}
+
+\begin{frame}{基本的线性结构模型设定}
+假设结果变量 $Y_i$ 的真实数据生成过程（data generating process，DGP）是一个线性结构模型：
+
+\begin{equation}
+ Y_i = a + bD_i + cX_i + \varepsilon_i, \quad i = 1, \ldots, n.   
+ \label{eq:lin_model}
+\end{equation}
+
+其中变量分为三类：
+\begin{itemize}
+  \item $D_i$：研究者感兴趣的处理变量
+  \item $X_i$：影响 $Y$ 且与 $D$ 相关的变量（即 $\text{cov}(D_i, X_i) \neq 0$）
+  \item $\varepsilon_i$：影响 $Y$ 但与 $D$ 无关的其他因素（即 $\text{cov}(D_i, \varepsilon_i) = 0$）
+\end{itemize}
+参数 $b$ 就是我们想要估计的因果效应。
+\end{frame}
+
+\begin{frame}{ 遗漏变量偏误}
+如果研究者不知道或无法观测 $X_i$，只能估计一个简单的一元回归：
+
+
+\begin{equation}
+Y_i = \alpha + \beta D_i + u_i
+\end{equation}
+
+
+用OLS估计 $\beta$，得到的估计量为：
+
+$$
+\hat{\beta}^{ols} = \frac{\text{cov}(Y_i, D_i)}{\text{var}(D_i)}.
+$$
+
+将真实的DGP代入，可以推导出：
+
+\begin{equation}
+\hat{\beta}^{ols} = \frac{\text{cov}(a + bD_i + cX_i + \varepsilon_i,\; D_i)}{\text{var}(D_i)} = b + c \times \underbrace{\frac{\text{cov}(X_i, D_i)}{\text{var}(D_i)}}_{\lambda}
+\end{equation}
+
+\end{frame}
+
+\begin{frame}{遗漏变量偏误公式}
+
+\begin{equation*}
+\hat{\beta}^{ols} = \frac{\text{cov}(a + bD_i + cX_i + \varepsilon_i,\; D_i)}{\text{var}(D_i)} = b + c \times \underbrace{\frac{\text{cov}(X_i, D_i)}{\text{var}(D_i)}}_{\lambda}
+\end{equation*}
+
+\begin{itemize}
+  \item $b$ 这就是经典的\textbf{遗漏变量偏误公式}。OLS估计量 $\hat{\beta}^{ols}$ 等于真实因果效应 $b$ 加上一个偏误项 $c \times \lambda$。
+  \item 偏误项的含义是：$c$ 是遗漏变量 $X$ 对结果 $Y$ 的影响，$\lambda$ 是遗漏变量 $X$ 与处理变量 $D$ 的关联程度。
+  \item 偏误为零需要 $c=0$（$X$ 不影响 $Y$）或 $\lambda=0$（$X$ 与 $D$ 不相关），在观测性研究中这两个条件通常都不满足。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ 多元回归与FWL定理}
+为了消除偏误，将 $X_i$ 加入回归方程：
+
+\begin{equation}
+  Y_i = \alpha^l + \beta^l D_i + \gamma^l X_i + u_i^l
+\end{equation}
+
+若满足条件外生性假设 $E[u_i^l \mid D_i, X_i] = 0$，则 $\hat{\beta}^l$ 是因果参数 $b$ 的一致估计。
+
+FWL定理（Frisch -- Waugh -- Lovell Theorem）提供了直观理解：多元回归中 $D_i$ 的系数可以通过两步得到：
+
+\begin{itemize}
+  \item 将 $Y_i$ 和 $D_i$ 各自对 $X_i$ 做回归，取残差 $\tilde{Y}_i$ 和 $\tilde{D}_i$，剔除掉能被 $X_i$ 解释的部分。
+  \item 将 $\tilde{Y}_i$ 对 $\tilde{D}_i$ 回归，系数 $\hat{\beta}^s = \frac{\text{cov}(\tilde{Y}_i, \tilde{D}_i)}{\text{var}(\tilde{D}_i)}$，与长回归系数完全一致。
+  \item 净化后 $\tilde{Y}_i$ 和 $\tilde{D}_i$ 都与 $X_i$ 正交，它们之间的相关性不可能来自遗漏 $X_i$ 导致的伪相关，只能来自 $D_i$ 对 $Y_i$ 的真实因果关系。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{传统范式面临的挑战}
+\begin{itemize}
+  \item \textbf{缺乏对因果关系的明确定义}
+    \begin{itemize}
+      \item 传统方法试图通过结构模型参数定义因果效应，混淆了因果效应、估计目标与估计量。
+      \item 结构参数仅为因果效应的函数表示，而非本体。
+      \item \textbf{举例：}当存在异质性因果效应（即 $b_i$ 因人而异）时，OLS 估计量 $\hat{\beta}^l$ 的估计目标将变得模糊。
+    \end{itemize}
+  \vspace{0.5em} % 增加两个主点之间的垂直间距，让排版更透气
+  \item \textbf{未区分处理变量和控制变量的角色}
+    \begin{itemize}
+      \item 处理变量 $D_i$ 和控制变量 $X_i$ 在回归方程中地位对称。
+      \item \textbf{逻辑悖论：}基于相关性选择控制变量时，如果说 $X$ 是 $D$ 的遗漏变量，反过来也能成立。
+    \end{itemize}
+\end{itemize}
+\end{frame}

@@ -1,0 +1,16 @@
+\begin{table}
+  \centering
+  \renewcommand{\arraystretch}{1.3} % 增加行距，防止幻灯片中显得拥挤
+  \setlength{\tabcolsep}{10pt}      % 调整列间距
+  \begin{tabular}{lccc}
+    \toprule
+    % 第一列表头跨2行，后面三列的上方加一个跨3列的总表头
+    \multirow{2}{*}{\textbf{Treatment}} & \multicolumn{3}{c}{\textbf{Condition}} \\
+    \cmidrule(lr){2-4} % 在第2列到第4列下方画一条修饰用的短横线，(lr)表示左右两端稍微缩进
+    & \textbf{Mild} & \textbf{Severe} & \textbf{Total} \\
+    \midrule
+    Treatment A & 210/1400 = 15\% & 30/100 = 30\% & 240/1500 = 16\% \\
+    Treatment B & 5/50 = 10\%    & 100/500 = 20\% & 105/550 = 19.1\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}

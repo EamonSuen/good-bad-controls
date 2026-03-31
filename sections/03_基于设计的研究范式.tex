@@ -1,0 +1,91 @@
+\section{基于设计的研究范式：控制变量的新理解}
+
+
+\begin{frame}[allowframebreaks]{潜在结果框架(potential outcomes framework)}
+\begin{itemize}
+  \item 潜在结果 (Potential Outcomes)：对于特定的治疗水平 $w \in \{0, 1\}$，定义潜在结果 $Y_i(1)$ 和 $Y_i(0)$，它们分别代表第 $i$ 个对象在接受治疗或未接受治疗时原本会经历的结果 。实际上观察到的结果 $Y_i$ 取决于该对象最终接受的治疗分配 $W_i$，即 $Y_i = Y_i(W_i)$ 。
+  \item 个体因果效应 (Individual Causal Effect)：治疗对第 $i$ 个体的因果效应被定义为其两种潜在结果的差值，接受处理时的 $Y_i(1)$ 和未接受处理时的 $Y_i(0)$。个体因果效应定义为：
+
+\[\tau_i \equiv Y_i(1) - Y_i(0)\]
+
+\item 群体平均因果效应（ATE）为：
+
+\[
+ATE \equiv E[\tau_i] = E[Y_i(1) - Y_i(0)]  \not = \underbrace{E[Y|D_i=1] - E[Y|D_i=0]}_{\text{Simple Difference in Means}}
+\]
+
+\item 这个定义的优势：不依赖结构模型的函数形式，自然容纳异质性因果效应
+\item 因果推断的根本问题 (The Fundamental Problem in Causal Inference)：于任意给定的个体，只能为其分配一种治疗方式，因此 $Y_i(0)$ 和 $Y_i(1)$ 中永远只能观察到其中一个。因果推断本质上是一个\textbf{缺失数据问题}。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{选择性偏误的来源}
+直接比较处理组和对照组的均值差异（Simple Difference in Means，SDM）：
+
+\[
+SDM = \underbrace{E[Y_i(1)|D_i=1] - E[Y_i(0)|D_i=1]}_{ATT} + \underbrace{\{E[Y_i(0)|D_i=1] - E[Y_i(0)|D_i=0]\}}_{\text{选择性偏误}}
+\]
+
+选择性偏误衡量的是：处理组和对照组即使都不接受处理，其潜在结果也可能不同。
+
+消除选择性偏误需要独立性假设 $\{Y(1), Y(0)\} \perp D$，但在观测性研究中几乎不可能成立。
+
+\vspace{0.5em}
+
+因此，以经济学为代表的使用观测数据开展研究的社会科学领域所面临的因果推断问题，难以直接计算SDM，因为经济学家一般难以开展随机试验。
+\end{frame}
+\begin{frame}[allowframebreaks]{条件独立性假设与分块随机化实验}
+
+全样本中独立性假设 $\{Y(1), Y(0)\} \perp D$ 几乎不成立，但如果将比较范围缩小到\textbf{特征相同的子样本}中，或许可以在局部实现近似随机。为此引入\textbf{条件独立性假设}（CIA）：
+\[
+  \{Y(1), Y(0)\} \perp D \mid X
+\]
+含义：在控制变量 $X$ 取值相同的个体中，处理状态的分配近似于随机。
+
+\vspace{0.8em}
+
+定义\textbf{倾向得分} $e(X) \equiv \Pr\{D=1 \mid X\}$，将 $X$ 取值相同的个体归入同一个\textbf{分块（block）}。CIA 保证分块内部所有个体接受处理的概率相同，此时：
+\begin{align*}
+  E\big[Y_i(0) \mid D_i=1,\, X\big]
+    &= E\big[Y_i(0) \mid D_i=0,\, X\big]
+     = E\big[Y_i(0) \mid X\big] \\[0.3em]
+  E\big[Y_i(1) \mid D_i=1,\, X\big]
+    &= E\big[Y_i(1) \mid D_i=0,\, X\big]
+     = E\big[Y_i(1) \mid X\big]
+\end{align*}
+处理组和对照组在分块内具有相同的潜在结果分布，选择性偏误被消除。于是可以用可观测数据估计分块内的\textbf{条件平均处理效应}：
+\[
+  \tau(X) = E[Y_i \mid D_i=1,\, X] - E[Y_i \mid D_i=0,\, X]
+\]
+
+\framebreak
+
+上述推导还需要一个常被忽略的前提——\textbf{重叠性假设}：
+\[
+  0 < e(X) < 1 \quad \text{对所有可能的 } X \text{ 取值成立}
+\]
+它保证每个分块内既有处理组又有对照组。若某分块内 $e(X)=0$ 或 $1$，则找不到比较对象，该分块的因果效应无法识别，相应样本被排除在估计之外。
+
+\vspace{0.8em}
+
+综上，控制变量在分块随机化实验中的操作可归纳为三步：
+\begin{enumerate}
+  \item \textbf{按控制变量分块}——将 $X$ 取值相同的个体归入同一分块
+  \item \textbf{分块内估计条件因果效应}——CIA 保证分块内处理状态近似随机，组间均值差异即为 $\tau(X)$
+  \item \textbf{跨组加权平均}——精确匹配估计量：
+    \[
+      ATE = \sum_{x:\, 0<e_x<1}
+        \frac{\Pr(X=x)}{\sum_{x'}\Pr(X=x')} \cdot \tau(X=x)
+    \]
+
+\end{enumerate}
+
+
+  \vspace{1em}
+  \begin{quote}
+    \Large \textbf{``通过将全样本按照控制变量取值划分为多个分块，在 CIA 假设成立的前提下，每一个分块内部都近似于一个随机化实验。''}
+  \end{quote}
+  \vspace{1em}
+
+\end{frame}

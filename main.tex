@@ -9,13 +9,13 @@
 \usepackage{tikz}
 \usepackage{csquotes}
 \usepackage{hyperref}
+\usepackage{multirow}
 \usepackage{appendixnumberbeamer}
 \usepackage[
   backend=biber,
-  style=authoryear,
+  style=apa,
   sorting=nyt
 ]{biblatex}
-
 \addbibresource{references.bib}
 
 % Stable local font root. This path is intentionally absolute because the
@@ -72,18 +72,18 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{caption}[numbered]
 
-\title{Universal Academic Beamer Template}
-\subtitle{A Reusable Structure for Research Presentations}
-\author[Your Name]{Your Name}
-\institute[Your University]{Your Department, Your University, \texttt{your.email@example.com}}
+\title{再谈线性回归模型}
+\subtitle{——基于研究设计视角\parencite{GLSJ202510012}}
+\author[孙翊铭]{孙翊铭}
+\institute[吉林大学]{吉林大学经济学院} 
 \date{\today}
 
 \AtBeginSection[]
 {
   \begin{frame}{Outline}
-    \begin{multicols}{2}
+    
       \tableofcontents[currentsection]
-    \end{multicols}
+   
   \end{frame}
 }
 
@@ -100,14 +100,12 @@
 \end{frame}
 
 \input{sections/01_intro}
-\input{sections/02_background}
-\input{sections/03_model}
-\input{sections/04_empirics}
-\input{sections/05_conclusion}
-\appendix
-\input{sections/99_appendix}
+\input{sections/02_传统范式}
+\input{sections/03_基于设计的研究范式}
+\input{sections/04_Simpson's Paradox}
+\input{sections/05_good-bad control}
 
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}{References}
   \printbibliography
 \end{frame}
 
