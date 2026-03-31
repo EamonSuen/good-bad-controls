@@ -17,20 +17,23 @@
 
 ```
 .
-├── main.tex                          # Beamer 主文件
-├── references.bib                    # 参考文献
-├── sections/
-│   ├── 01_intro.tex                  # 整体逻辑线
-│   ├── 02_传统范式.tex                # 传统范式：OVB、FWL 定理
-│   ├── 03_基于设计的研究范式.tex       # 潜在结果框架、CIA、分块随机化
-│   ├── 04_Simpson's Paradox.tex      # 辛普森悖论与后门调整
-│   └── 05_good-bad control.tex       # 好控制变量与坏控制变量分类
-├── tables/
-│   └── Simpson's Paradox.tex         # COVID-27 列联表
-├── scenario1_confounder.do           # Stata 代码：C 为混杂变量
-├── scenario2_mediator.do             # Stata 代码：C 为中介变量
-└── 控制变量选择_组会讲稿.md            # 完整讲稿（Markdown）
-└── 控制变量模拟数据.xlsx              # 张子尧 & 黄炜(2025)论文中例子的计算示例
+├── main.pdf
+├── main.tex											# Beamer 主文件
+├── README.md
+├── references.bib								# 参考文献
+├── scenario1_confounder.do				# Stata 代码：C 为混杂变量
+├── scenario2_mediator.do					# Stata 代码：C 为中介变量
+├── sections
+│   ├── 01_intro.tex							# 整体逻辑线
+│   ├── 02_传统范式.tex							# 传统范式：OVB、FWL 定理
+│   ├── 03_基于设计的研究范式.tex			# 潜在结果框架、CIA、分块随机化
+│   ├── 04_Simpson's Paradox.tex		# 辛普森悖论与后门调整
+│   └── 05_good-bad control.tex			# 好控制变量与坏控制变量分类
+├── tables
+│   └── Simpson's Paradox.tex			# COVID-27 列联表
+├── 控制变量选择_组会讲稿.html				# 完整讲稿（HTML）
+├── 控制变量选择_组会讲稿.md					# 完整讲稿（Markdown）
+└── 控制变量模拟数据.xlsx						# 张子尧 & 黄炜(2025)论文中例子的计算示例
 ```
 
 ## 内容概要
