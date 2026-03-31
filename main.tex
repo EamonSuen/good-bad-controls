@@ -1,0 +1,114 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[UTF8,fontset=none]{ctex}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath, amssymb}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{appendixnumberbeamer}
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=nyt
+]{biblatex}
+
+\addbibresource{references.bib}
+
+% Stable local font root. This path is intentionally absolute because the
+% font repository is kept in a fixed location outside the template project.
+\newcommand{\FontRoot}{/Users/eamonsuen/Documents/GitHub/latex-chinese-fonts}
+
+% English fonts
+\setmainfont{TimesNewRoman.ttf}[
+  Path = \FontRoot/english/Serif/,
+  BoldFont = TimesNewRomanBold.ttf,
+  ItalicFont = TimesNewRomanItalic.ttf,
+  BoldItalicFont = TimesNewRomanBoldItalic.ttf
+]
+\setsansfont{Helvetica.ttf}[
+  Path = \FontRoot/english/Sans/,
+  BoldFont = HelveticaBold.ttf,
+  ItalicFont = HelveticaOblique.ttf,
+  BoldItalicFont = HelveticaBoldOblique.ttf
+]
+\setmonofont{Courier.ttf}[
+  Path = \FontRoot/english/Mono/,
+  BoldFont = CourierBold.ttf,
+  ItalicFont = CourierOblique.ttf,
+  BoldItalicFont = CourierBoldOblique.ttf
+]
+
+% Chinese fonts
+\setCJKmainfont{FangSong.ttf}[
+  Path = \FontRoot/chinese/仿宋体/,
+  AutoFakeBold = true,
+  AutoFakeSlant = true
+]
+\setCJKsansfont{STHeiti.ttf}[
+  Path = \FontRoot/chinese/黑体/,
+  AutoFakeBold = true,
+  AutoFakeSlant = true
+]
+\setCJKmonofont{SimHei.ttf}[
+  Path = \FontRoot/chinese/黑体/,
+  AutoFakeBold = true,
+  AutoFakeSlant = true
+]
+
+% Optional per-project override examples.
+% \setmainfont{YourSerifFont.ttf}[Path=fonts/serif/]
+% \setsansfont{YourSansFont.ttf}[Path=fonts/sans/]
+% \setmonofont{YourMonoFont.ttf}[Path=fonts/mono/]
+
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+\usetheme{default}
+\usecolortheme{default}
+\useoutertheme{infolines}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+\title{Universal Academic Beamer Template}
+\subtitle{A Reusable Structure for Research Presentations}
+\author[Your Name]{Your Name}
+\institute[Your University]{Your Department, Your University, \texttt{your.email@example.com}}
+\date{\today}
+
+\AtBeginSection[]
+{
+  \begin{frame}{Outline}
+    \begin{multicols}{2}
+      \tableofcontents[currentsection]
+    \end{multicols}
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \begin{multicols}{2}
+    \tableofcontents
+  \end{multicols}
+\end{frame}
+
+\input{sections/01_intro}
+\input{sections/02_background}
+\input{sections/03_model}
+\input{sections/04_empirics}
+\input{sections/05_conclusion}
+\appendix
+\input{sections/99_appendix}
+
+\begin{frame}[allowframebreaks]{References}
+  \printbibliography
+\end{frame}
+
+\end{document}
