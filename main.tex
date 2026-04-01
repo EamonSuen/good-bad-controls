@@ -10,13 +10,15 @@
 \usepackage{csquotes}
 \usepackage{hyperref}
 \usepackage{multirow}
+\usepackage{ccicons}
 \usepackage{appendixnumberbeamer}
 \usepackage[
   backend=biber,
-  style=apa,
-  sorting=nyt
+  style=apa, %apa风格，适合社会科学
 ]{biblatex}
 \addbibresource{references.bib}
+
+\setbeamertemplate{frametitle continuation}{(\insertcontinuationcount)} % 显示分页为阿拉伯数字(1), (2)
 
 % Stable local font root. This path is intentionally absolute because the
 % font repository is kept in a fixed location outside the template project.
@@ -107,6 +109,22 @@
 
 \begin{frame}{References}
   \printbibliography
+\end{frame}
+
+\begin{frame}
+  \vspace*{\fill}
+  \begin{center}
+    {\Huge \textbf{谢谢聆听！}} \\[1em]
+    {\large Q \& A}
+  \end{center}
+  \vspace*{\fill}
+  
+  \begin{center}
+    \tiny \textcolor{gray}{
+      \ccby \\ % 这里会渲染出 CC 和 BY 的官方小图标
+      This work is licensed under a \href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons Attribution 4.0 International License}.
+    }
+  \end{center}
 \end{frame}
 
 \end{document}
